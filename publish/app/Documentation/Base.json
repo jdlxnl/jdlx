@@ -1,0 +1,17 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "#Application# API",
+        "description": "#Application# API",
+        "version": "1.0"
+    },
+    "servers": [],
+    "paths": {},
+    "components": {
+        "schemas": {},
+        "responses": {},
+        "parameters": {},
+        "securitySchemes": {}
+    },
+    "security": []
+}

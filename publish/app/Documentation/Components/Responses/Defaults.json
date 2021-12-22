@@ -1,0 +1,52 @@
+{
+    "OK200": {
+        "description": "Similar to No Content, but sometimes forced by webhook response",
+        "content": {
+            "application/json": {
+                "schema": {
+                    "$ref": "#/components/schemas/OK"
+                }
+            }
+        }
+    },
+    "NotFound": {
+        "description": "The specified resource was not found.",
+        "content": {
+            "application/json": {
+                "schema": {
+                    "$ref": "#/components/schemas/Error"
+                }
+            }
+        }
+    },
+    "Unauthenticated": {
+        "description": "The users was not authenticated.",
+        "content": {
+            "application/json": {
+                "schema": {
+                    "$ref": "#/components/schemas/Error"
+                }
+            }
+        }
+    },
+    "Unauthorized": {
+        "description": "The users was not authorized.",
+        "content": {
+            "application/json": {
+                "schema": {
+                    "$ref": "#/components/schemas/Error"
+                }
+            }
+        }
+    },
+    "Invalid": {
+        "description": "The provided data is invalid.",
+        "content": {
+            "application/json": {
+                "schema": {
+                    "$ref": "#/components/schemas/Error"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,58 @@
+{
+    "pageParameter": {
+        "name": "page",
+        "in": "query",
+        "description": "Which page of items to return",
+        "required": false,
+        "schema": {
+            "type": "integer"
+        }
+    },
+    "limitParameter10Max100": {
+        "name": "limit",
+        "in": "query",
+        "description": "Number of items to be returned per page",
+        "required": false,
+        "schema": {
+            "type": "integer"
+        }
+    },
+    "limitParameter": {
+        "name": "limit",
+        "in": "query",
+        "description": "Number of items to be returned per page",
+        "required": false,
+        "schema": {
+            "type": "integer"
+        }
+    },
+    "sortParameter": {
+        "name": "sort",
+        "in": "query",
+        "description": "Sort allowed fields",
+        "required": false,
+        "schema": {
+            "type": "string"
+        }
+    },
+    "idParameter": {
+        "name": "id",
+        "in": "path",
+        "description": "The identifier of the entity",
+        "required": true,
+        "schema": {
+            "type": "string"
+        }
+    },
+    "filterParameter": {
+        "name": "filter",
+        "in": "query",
+        "description": "Filters to be applied to the query",
+        "required": false,
+        "style": "deepObject",
+        "explode": true,
+        "schema": {
+            "type": "object"
+        }
+    }
+}

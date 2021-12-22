@@ -1,0 +1,55 @@
+{
+    "User": {
+        "title": "User model",
+        "description": "User model",
+        "required": [
+            "id",
+            "name",
+            "email",
+            "password"
+        ],
+        "properties": {
+            "id": {
+                "description": "Value for id",
+                "type": "integer",
+                "readOnly": true
+            },
+            "name": {
+                "description": "Value for name",
+                "type": "string"
+            },
+            "email": {
+                "description": "Value for email",
+                "type": "string"
+            },
+            "email_verified_at": {
+                "description": "Value for email_verified_at",
+                "type": "string",
+                "format": "date-time"
+            },
+            "password": {
+                "description": "Value for password",
+                "type": "string",
+                "writeOnly": true
+            },
+            "remember_token": {
+                "description": "Value for remember_token",
+                "type": "string"
+            },
+            "created_at": {
+                "description": "Value for created_at",
+                "type": "string",
+                "format": "date-time",
+                "readOnly": true
+            },
+            "updated_at": {
+                "description": "Value for updated_at",
+                "type": "string",
+                "format": "date-time",
+                "readOnly": true
+            }
+        },
+        "type": "object",
+        "readOnly": true
+    }
+}

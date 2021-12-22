@@ -1,0 +1,7 @@
+{
+    "bearer_auth": {
+        "type": "http",
+        "bearerFormat": "JWT",
+        "scheme": "bearer"
+    }
+}

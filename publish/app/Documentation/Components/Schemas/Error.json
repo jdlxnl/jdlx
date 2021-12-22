@@ -1,0 +1,30 @@
+{
+    "Error": {
+        "title": "Error",
+        "description": "A formatted error",
+        "properties": {
+            "error": {
+                "properties": {
+                    "code": {
+                        "description": "This property value will usually represent the HTTP response code.",
+                        "type": "integer"
+                    },
+                    "message": {
+                        "description": "A human readable message providing more details about the error. If there are multiple errors, message will be the message for the first error.",
+                        "type": "string"
+                    },
+                    "errors": {
+                        "description": "Container for any additional information regarding the error. ",
+                        "type": "array",
+                        "items": {
+                            "type": "object"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "type": "object",
+        "readOnly": true
+    }
+}

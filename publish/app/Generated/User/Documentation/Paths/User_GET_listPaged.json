@@ -1,0 +1,67 @@
+{
+    "\/user": {
+        "get": {
+            "tags": [
+                "User"
+            ],
+            "summary": "Retrieve page of user",
+            "operationId": "listUser",
+            "parameters": [
+                {
+                    "$ref": "#\/components\/parameters\/pageParameter"
+                },
+                {
+                    "$ref": "#\/components\/parameters\/limitParameter"
+                },
+                {
+                    "$ref": "#\/components\/parameters\/sortParameter"
+                },
+                {
+                    "$ref": "#\/components\/parameters\/filterParameter"
+                }
+            ],
+            "responses": {
+                "401": {
+                    "$ref": "#\/components\/responses\/Unauthorized"
+                },
+                "200": {
+                    "description": "Page of user",
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "type": "object",
+                                        "allOf": [
+                                            {
+                                                "$ref": "#\/components\/schemas\/Paginator"
+                                            },
+                                            {
+                                                "properties": {
+                                                    "items": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "$ref": "#\/components\/schemas\/User"
+                                                        }
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                }
+            },
+            "security": [
+                {
+                    "bearer_auth": [],
+                    "cookie_auth": []
+                }
+            ]
+        }
+    }
+}

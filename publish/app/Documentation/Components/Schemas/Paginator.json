@@ -1,0 +1,63 @@
+{
+    "Paginator": {
+        "title": "Paging",
+        "description": "Paging information",
+        "properties": {
+            "pageIndex": {
+                "description": "The current page",
+                "type": "integer"
+            },
+            "currentItemCount": {
+                "description": "The number of items in current result",
+                "type": "integer"
+            },
+            "totalItems": {
+                "description": "The total available results",
+                "type": "integer"
+            },
+            "itemsPerPage": {
+                "description": "Result count per page",
+                "type": "integer"
+            },
+            "startIndex": {
+                "description": "The index of the first item of the current result",
+                "type": "integer"
+            },
+            "endIndex": {
+                "description": "The last index in the current result",
+                "type": "integer"
+            },
+            "lastPageIndex": {
+                "description": "The last available page",
+                "type": "integer"
+            },
+            "path": {
+                "description": "The base path of the request",
+                "type": "string",
+                "format": "uri"
+            },
+            "firstLink": {
+                "description": "The url to retrieve the previous items",
+                "type": "string",
+                "format": "uri"
+            },
+            "previousLink": {
+                "description": "The url to retrieve the previous items",
+                "type": "string",
+                "format": "uri"
+            },
+            "nextLink": {
+                "description": "The url to retrieve more items",
+                "type": "string",
+                "format": "uri"
+            },
+            "lastLink": {
+                "description": "The url to retrieve the last items",
+                "type": "string",
+                "format": "uri"
+            }
+        },
+        "type": "object",
+        "readOnly": true
+    }
+}

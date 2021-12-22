@@ -1,0 +1,143 @@
+{
+    "/auth/csfr": {
+        "get": {
+            "tags": [
+                "Auth"
+            ],
+            "summary": "Generate a token for a user on a device",
+            "operationId": "Set csfr token",
+            "responses": {
+                "204": {
+                    "description": "Return an empty response simply to trigger the storage of the CSRF cookie in the browser."
+                }
+            }
+        }
+    },
+    "/auth/token": {
+        "post": {
+            "tags": [
+                "Auth"
+            ],
+            "summary": "Generate a token for a user on a device",
+            "operationId": "token",
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                },
+                                "device_name": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "Return token to access the API",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "properties": {
+                                            "token": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/auth/login": {
+        "post": {
+            "tags": [
+                "Auth"
+            ],
+            "summary": "Login to the application using username and password",
+            "operationId": "login",
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "email": {
+                                    "type": "string"
+                                },
+                                "password": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "Return token to access the API",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "/auth/logout": {
+        "post": {
+            "tags": [
+                "Auth"
+            ],
+            "summary": "End the session for SPA type authentication",
+            "operationId": "logout",
+            "responses": {
+                "200": {
+                    "description": "User has been logged out",
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                }
+            },
+            "security": [
+                {
+                    "bearer_auth": []
+                }
+            ]
+        }
+    }
+}

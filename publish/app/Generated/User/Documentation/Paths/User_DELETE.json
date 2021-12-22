@@ -1,0 +1,45 @@
+{
+    "\/user\/{id}": {
+        "delete": {
+            "tags": [
+                "User"
+            ],
+            "summary": "Delete a User",
+            "operationId": "deleteUser",
+            "parameters": [
+                {
+                    "$ref": "#\/components\/parameters\/idParameter"
+                }
+            ],
+            "responses": {
+                "200": {
+                    "description": "Retrieving a User",
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "$ref": "#\/components\/schemas\/User"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "$ref": "#\/components\/responses\/NotFound"
+                },
+                "401": {
+                    "$ref": "#\/components\/responses\/Unauthorized"
+                }
+            },
+            "security": [
+                {
+                    "bearer_auth": [],
+                    "cookie_auth": []
+                }
+            ]
+        }
+    }
+}

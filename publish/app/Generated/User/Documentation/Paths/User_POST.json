@@ -1,0 +1,50 @@
+{
+    "\/user": {
+        "post": {
+            "tags": [
+                "User"
+            ],
+            "summary": "Create a new User",
+            "operationId": "createUser",
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application\/json": {
+                        "schema": {
+                            "$ref": "#\/components\/schemas\/User"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "201": {
+                    "description": "User created",
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "$ref": "#\/components\/schemas\/User"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "401": {
+                    "$ref": "#\/components\/responses\/Unauthorized"
+                },
+                "422": {
+                    "$ref": "#\/components\/responses\/Invalid"
+                }
+            },
+            "security": [
+                {
+                    "bearer_auth": [],
+                    "cookie_auth": []
+                }
+            ]
+        }
+    }
+}

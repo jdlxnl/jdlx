@@ -1,0 +1,33 @@
+{
+    "name": "jdlxnl/jdlx",
+    "description": "Foundation for rest APIs in laravel",
+    "type": "library",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Jeroen de Lau",
+            "email": "jeroen.delau@gmail.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+              "Jdlx\\JdlxServiceProvider"
+            ]
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Jdlx\\": "src/"
+        }
+    },
+    "require": {
+        "laravel/framework":  "^8.12",
+
+        "doctrine/dbal": "^3.0",
+        "laravel/sanctum": "^2.9",
+        "spatie/laravel-permission": "^4.0",
+        "phpunit/phpunit": "^9.5",
+        "fakerphp/faker": "^1.17"
+    }
+}

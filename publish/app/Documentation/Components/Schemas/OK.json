@@ -1,0 +1,19 @@
+{
+    "OK": {
+        "title": "OK",
+        "description": "Simple acknowledgement of webhook",
+        "properties": {
+            "data": {
+                "properties": {
+                    "status": {
+                        "description": "Returns any string, just say it's ok",
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "type": "object",
+        "readOnly": true
+    }
+}

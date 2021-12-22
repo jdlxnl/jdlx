@@ -1,0 +1,55 @@
+{
+    "\/user\/{id}": {
+        "put": {
+            "tags": [
+                "User"
+            ],
+            "summary": "Update a User",
+            "operationId": "updateUser",
+            "parameters": [
+                {
+                    "$ref": "#\/components\/parameters\/idParameter"
+                }
+            ],
+            "requestBody": {
+                "required": true,
+                "content": {
+                    "application\/json": {
+                        "schema": {
+                            "$ref": "#\/components\/schemas\/User"
+                        }
+                    }
+                }
+            },
+            "responses": {
+                "200": {
+                    "description": "Retrieving a User",
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "$ref": "#\/components\/schemas\/User"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "404": {
+                    "$ref": "#\/components\/responses\/NotFound"
+                },
+                "401": {
+                    "$ref": "#\/components\/responses\/Unauthorized"
+                }
+            },
+            "security": [
+                {
+                    "bearer_auth": [],
+                    "cookie_auth": []
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "cookie_auth": {
+        "type": "apiKey",
+        "name": "laravel_session",
+        "in": "cookie"
+    }
+}
