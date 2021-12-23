@@ -8,9 +8,19 @@ https://gitmoji.dev/
 ## Installation
 Add the package by loading it through composer.
 
+Add this repository to your composer.json
+```json
+{
+    "repositories": [
+        { "name": "jdlxnl/jdlx", "type": "vcs", "url": "https://github.com/jdlxnl/jdlx" }
+    ]
+}
+```
+
 ```shell
 composer require jdlxnl/jdlx
 ```
+
 
 
 Run the following commands to setup the database
