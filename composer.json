@@ -1,8 +1,8 @@
 {
     "name": "jdlxnl/jdlx",
-    "description": "Foundation for rest APIs in laravel",
+    "description": "Foundation for rest APIs in Laravel",
     "type": "library",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Jeroen de Lau",
@@ -22,6 +22,7 @@
         }
     },
     "require": {
+        "php": ">=8",
         "laravel/framework":  "^8.12",
         "doctrine/dbal": "^3.0",
         "laravel/sanctum": "^2.9",

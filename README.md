@@ -1,26 +1,18 @@
 # Package
-The packages is to run and support scaffolding for an API.
+This packages offers a set of tools to support a REST API.
+It is very biased and does not offer much in the way of configuration.
 
-## References
-API Responses: https://google.github.io/styleguide/jsoncstyleguide.xml
-https://gitmoji.dev/
+It can:
+- Outputs all responses according to API Responses: https://google.github.io/styleguide/jsoncstyleguide.xml
+- Generate swagger documentation, by compiling JSON files in a documentation folder
+- Assumes sanctum and spatie wildcard permissions
 
 ## Installation
 Add the package by loading it through composer.
 
-Add this repository to your composer.json
-```json
-{
-    "repositories": [
-        { "name": "jdlxnl/jdlx", "type": "vcs", "url": "https://github.com/jdlxnl/jdlx" }
-    ]
-}
-```
-
 ```shell
 composer require jdlxnl/jdlx
 ```
-
 
 
 Run the following commands to setup the database
