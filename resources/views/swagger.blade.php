@@ -21,7 +21,7 @@
       window.ui = SwaggerUIBundle({
           dom_id: '#swagger-ui',
 
-          url: "/api/api-docs.json",
+          url: "/api/api-docs",
           operationsSorter: null,
           configUrl: null,
           validatorUrl: null,
