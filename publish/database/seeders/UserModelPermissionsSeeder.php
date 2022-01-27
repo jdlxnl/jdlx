@@ -26,7 +26,7 @@ class UserModelPermissionsSeeder extends Seeder
         if ($admin) {
             $admin->givePermissionTo(Permission::all());
         } else {
-            Role::create(['name' => 'Super Admin'])->givePermissionTo(Permission::all());
+            Role::create(['name' => 'Super Admin', 'guard_name' => 'api'])->givePermissionTo(Permission::all());
         }
     }
 
