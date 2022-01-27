@@ -35,26 +35,24 @@ class AccountCreateCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return int
      */
-    public function handle()
+    public function handle() : int
     {
-        //$url = $request->get('url', null);
         $email = $this->argument('email');
         $password = $this->argument('password');
         $name = $this->argument('name') ?? "John Doe";
 
-
-        $user = User::where('email', $email)->first();
+        $user = User::where('email', '=', $email)->first();
 
         if($user){
             $this->error("User Exists");
-            return -1;
+            return parent::FAILURE;
         }
 
         $fields = [
             'email'=>$email,
-            'password'=>\Illuminate\Support\Facades\Hash::make($password),
+            'password'=>Hash::make($password),
             'name'=>$name
         ];
 
@@ -62,6 +60,7 @@ class AccountCreateCommand extends Command
         $user->save();
 
         $this->info("User created");
-        return 0;
+
+        return parent::SUCCESS;
     }
 }
