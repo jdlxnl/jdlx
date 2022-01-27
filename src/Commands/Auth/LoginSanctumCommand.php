@@ -2,7 +2,7 @@
 
 namespace  Jdlx\Commands\Auth;
 
-use App\User;
+use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
@@ -37,18 +37,18 @@ class LoginSanctumCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return int
+     * @throws ValidationException
      */
-    public function handle(): mixed
+    public function handle(): int
     {
-        //$url = $request->get('url', null);
         $email = $this->argument('email');
         $password = $this->argument('password');
         $server = $this->option('server');
         $device = $this->option('device');
 
         if (!$server) {
-            $user = User::where('email', $email)->first();
+            $user = User::where('email', '=', $email)->first();
 
             if (!$user || !Hash::check($password, $user->password)) {
                 throw ValidationException::withMessages([
@@ -71,8 +71,9 @@ class LoginSanctumCommand extends Command
         $this->info("Requesting tokens from ${url}");
 
         $response = Http::withoutVerifying()->post($url, $body);
-        $json = json_decode($response->getBody());
+        $json = json_decode($response->body());
         dump($json);
-        return 0;
+
+        return parent::SUCCESS;
     }
 }
