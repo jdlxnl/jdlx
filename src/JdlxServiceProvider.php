@@ -7,6 +7,7 @@ use Jdlx\Commands\Account\AccountChangePasswordCommand;
 use Jdlx\Commands\Account\AccountCreateCommand;
 use Jdlx\Commands\Auth\LoginSanctumCommand;
 use Jdlx\Commands\Docs\GenerateDocsCommand;
+use Jdlx\Commands\Account\AccountAssignRoleCommand;
 
 
 class JdlxServiceProvider extends ServiceProvider
@@ -25,6 +26,7 @@ class JdlxServiceProvider extends ServiceProvider
                 AccountCreateCommand::class,
                 LoginSanctumCommand::class,
                 AccountCreateCommand::class,
+                AccountAssignRoleCommand::class,
             ]);
         }
 
