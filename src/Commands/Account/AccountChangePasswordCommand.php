@@ -35,24 +35,25 @@ class AccountChangePasswordCommand extends Command
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return int
      */
-    public function handle()
+    public function handle() : int
     {
-        //$url = $request->get('url', null);
         $email = $this->argument('email');
         $password = $this->argument('password');
 
-        $user = User::where('email', $email)->first();
+        $user = User::where('email', '=',$email)->first();
 
         if(!$user){
-            $this->error("can't find user");
-            return -1;
+            $this->error("Can't find user");
+            return parent::FAILURE;
         }
 
         $user->password = Hash::make($password);
         $user->save();
-        $this->info("password changed");
-        return 0;
+
+        $this->info("Password changed");
+
+        return parent::SUCCESS;
     }
 }
