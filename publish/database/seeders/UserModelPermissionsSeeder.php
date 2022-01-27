@@ -33,11 +33,11 @@ class UserModelPermissionsSeeder extends Seeder
     public function createGlobalPermissions()
     {
         $permissions = array(
-            ['name' => "user.create"],
-            ['name' => "user.view.*"],
-            ['name' => "user.update.*"],
-            ['name' => "user.restore.*"],
-            ['name' => "user.delete.*"]
+            ['name' => "user.create", 'guard_name' => 'api'],
+            ['name' => "user.view.*", 'guard_name' => 'api'],
+            ['name' => "user.update.*", 'guard_name' => 'api'],
+            ['name' => "user.restore.*", 'guard_name' => 'api'],
+            ['name' => "user.delete.*", 'guard_name' => 'api']
         );
         collect($permissions)->each(function (array $attributes) {
             try {
