@@ -34,6 +34,7 @@ class JdlxServiceProvider extends ServiceProvider
             __DIR__ . '/../publish/routes' => base_path('routes'),
             __DIR__ . '/../publish/tests' => base_path('tests'),
             __DIR__ . '/../publish/config' => base_path('config'),
+            __DIR__ . '/../publish/database/seeders' => base_path('database/seeders'),
         ]);
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'jdlx');
