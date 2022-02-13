@@ -7,6 +7,7 @@ use Jdlx\Commands\Account\AccountChangePasswordCommand;
 use Jdlx\Commands\Account\AccountCreateCommand;
 use Jdlx\Commands\Auth\LoginSanctumCommand;
 use Jdlx\Commands\Docs\GenerateDocsCommand;
+use Jdlx\Commands\Account\AccountAssignRoleCommand;
 
 
 class JdlxServiceProvider extends ServiceProvider
@@ -25,6 +26,7 @@ class JdlxServiceProvider extends ServiceProvider
                 AccountCreateCommand::class,
                 LoginSanctumCommand::class,
                 AccountCreateCommand::class,
+                AccountAssignRoleCommand::class,
             ]);
         }
 
@@ -34,6 +36,7 @@ class JdlxServiceProvider extends ServiceProvider
             __DIR__ . '/../publish/routes' => base_path('routes'),
             __DIR__ . '/../publish/tests' => base_path('tests'),
             __DIR__ . '/../publish/config' => base_path('config'),
+            __DIR__ . '/../publish/database/seeders' => base_path('database/seeders'),
         ]);
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'jdlx');
