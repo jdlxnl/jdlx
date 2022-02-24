@@ -22,7 +22,7 @@ class DocBuilder
     public function writeTo($path){
         $config = str_replace("\/", "/", json_encode($this->build(), JSON_PRETTY_PRINT));
         $dir = dirname($path);
-        if(!file_exists($dir)) mkdir($dir, null, true);
+        if(!file_exists($dir)) mkdir($dir, 0755, true);
         file_put_contents($path, $config);
     }
 
