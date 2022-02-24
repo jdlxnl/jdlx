@@ -139,5 +139,36 @@
                 }
             ]
         }
+    },
+    "/auth/user": {
+        "get": {
+            "tags": [
+                "Auth"
+            ],
+            "summary": "Return currently authenticated user",
+            "operationId": "users",
+            "responses": {
+                "200": {
+                    "description": "User is logged in",
+                    "content": {
+                        "application\/json": {
+                            "schema": {
+                                "properties": {
+                                    "data": {
+                                        "$ref": "#\/components\/schemas\/User"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                }
+            },
+            "security": [
+                {
+                    "bearer_auth": []
+                }
+            ]
+        }
     }
 }

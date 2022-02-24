@@ -17,8 +17,9 @@ Route::get('/auth/csfr', [AuthController::class, "csfr"]);
 Route::post('/auth/token', [AuthController::class, "token"]);
 Route::post('/auth/login',  [AuthController::class, "login"]);
 Route::post('/auth/logout',  [AuthController::class, "logout"]);
+Route::get('/auth/user',  [AuthController::class, "user"]);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('user', '\App\Http\Controllers\Api\UserController');
+    Route::apiResource('user', \App\Http\Controllers\Api\UserController::class);
 });
 
