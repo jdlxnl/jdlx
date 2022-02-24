@@ -50,6 +50,24 @@ class JdlxInstallCommand extends Command
 
         // $this->call('api:scaffold', ["User"]);
 
+        $path = base_path() . "/app/http/kernel.php";
+        $insert = "            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,";
+        $content = file_get_contents($path);
+        if (stristr($content, $insert)) {
+            $this->output->warning("Already added");
+        } else {
+            $res = $this->cut("after", '/(.*)\/\/ \\\\Laravel\\\\Sanctum\\\\Http\\\\Middleware\\\\EnsureFrontendRequestsAreStateful(.*)/', $content);
+            $start = explode("\n", $res[0]);
+            $end = explode("\n", $res[1]);
+
+            array_pop($start);
+            $start[] = $insert;
+            file_put_contents($path, implode("\n", array_merge($start, $end)));
+            $this->output->success("Enabled Stateful middleware in  app/http/kernel.php");
+        }
+
+
+
         $this->output->title("Adding service provider to config/app.php");
 
         $path = base_path() . "/config/app.php";
@@ -68,7 +86,31 @@ class JdlxInstallCommand extends Command
             $this->output->success("Jdlx\\Providers\\ResponseServiceProvider::class added to config/app.php");
         }
 
-        $this->output->title("Adding wildcard permissions to spatie");
+        $this->output->title("Adding api guard");
+        $path = base_path() . "/config/auth.php";
+        $content = file_get_contents($path);
+        if (stristr($content, "'api' => [")) {
+            $this->output->warning("Already added");
+        } else {
+            $res = $this->cut("after", "/\'provider\' => \'users\',/m", $content);
+            $start = explode("\n", $res[0]);
+            $end = explode("\n", $res[1]);
+
+            $start[] = array_shift($end).",";
+            $start[] = "        'api' => [";
+            $start[] = "             'driver' => 'token',";
+            $start[] = "             'provider' => 'users',";
+            $start[] = "             'hash' => false,";
+            $start[] = "         ]";
+
+            file_put_contents($path, implode("\n", array_merge($start, $end)));
+            $this->output->success("api guard added to config/auth.php");
+        }
+
+        $content = file_get_contents($path);
+
+        // 'provider' => 'users',
+
 
         $path = base_path() . "/config/permission.php";
         $insert = "'enable_wildcard_permission' => true";
