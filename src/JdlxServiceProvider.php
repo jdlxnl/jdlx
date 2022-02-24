@@ -8,6 +8,7 @@ use Jdlx\Commands\Account\AccountCreateCommand;
 use Jdlx\Commands\Auth\LoginSanctumCommand;
 use Jdlx\Commands\Docs\GenerateDocsCommand;
 use Jdlx\Commands\Account\AccountAssignRoleCommand;
+use Jdlx\Commands\Jdlx\JdlxCreateAdminCommand;
 use Jdlx\Commands\Jdlx\JdlxInstallCommand;
 
 
@@ -29,6 +30,7 @@ class JdlxServiceProvider extends ServiceProvider
                 AccountCreateCommand::class,
                 AccountAssignRoleCommand::class,
                 JdlxInstallCommand::class,
+                JdlxCreateAdminCommand::class,
             ]);
         }
 
