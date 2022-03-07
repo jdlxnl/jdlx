@@ -96,7 +96,7 @@ class JdlxInstallCommand extends Command
             $start = explode("\n", $res[0]);
             $end = explode("\n", $res[1]);
 
-            $start[] = array_shift($end).",";
+            $start[] = array_shift($end);
             $start[] = "        'api' => [";
             $start[] = "             'driver' => 'token',";
             $start[] = "             'provider' => 'users',";
