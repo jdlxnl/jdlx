@@ -13,7 +13,7 @@ class JdlxInstallCommand extends Command
      *
      * @var string
      */
-    protected $name = 'jdlx:install';
+    protected $signature = 'jdlx:install {--force}';
 
     /**
      * The console command description.
@@ -35,6 +35,8 @@ class JdlxInstallCommand extends Command
             return;
         }
 
+        $force = $this->input->getOption("force");
+
         $this->output->title("Publishing Vendor Packages");
         $this->output->info("Sanctum");
         $this->call('vendor:publish', ['--provider' => 'Laravel\Sanctum\SanctumServiceProvider']);
@@ -43,13 +45,14 @@ class JdlxInstallCommand extends Command
 
         ## config option
         $this->output->info("JDLX");
-        $this->call('vendor:publish', ['--provider' => 'Jdlx\JdlxServiceProvider', "--force" => true]);
+        $this->call('vendor:publish', ['--provider' => 'Jdlx\JdlxServiceProvider', "--force" => $force]);
 
         $this->output->title("Run the migration");
         $this->call('migrate');
 
         // $this->call('api:scaffold', ["User"]);
 
+        $this->output->info("Add stateful middleware to kernel");
         $path = base_path() . "/app/http/kernel.php";
         $insert = "            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,";
         $content = file_get_contents($path);
@@ -66,7 +69,26 @@ class JdlxInstallCommand extends Command
             $this->output->success("Enabled Stateful middleware in  app/http/kernel.php");
         }
 
+        $this->output->info("Add force json to kernel");
+        $content = file_get_contents($path);
+        if (stristr($content, "ForceJsonResponse")) {
+            $this->output->warning("Already added");
+        } else {
+            $res = $this->cut("after", '/(.*)Kernel extends HttpKernel(.*)/', $content);
+            $start = explode("\n", $res[0]);
+            $end = explode("\n", $res[1]);
 
+            $start[] = array_shift($end);
+            $start[] = '    public function __construct(\Illuminate\Contracts\Foundation\Application $app, \Illuminate\Routing\Router $router)';
+            $start[] = '    {';
+            $start[] = '        parent::__construct($app, $router);';
+            $start[] = '        $this->prependMiddlewareToGroup(\'api\', \App\Http\Middleware\ForceJsonResponse::class);';
+            $start[] = '    }';
+            $start[] = '';
+
+            file_put_contents($path, implode("\n", array_merge($start, $end)));
+            $this->output->success("Enabled Stateful middleware in  app/http/kernel.php");
+        }
 
         $this->output->title("Adding service provider to config/app.php");
 
@@ -122,6 +144,8 @@ class JdlxInstallCommand extends Command
             file_put_contents($path, $content);
             $this->output->success("Set $insert");
         }
+        $this->output->title("Update .gitignore");
+        $this->addToGitignore("studio.json");
 
         $this->output->title("Set .env values");
 
@@ -185,5 +209,22 @@ class JdlxInstallCommand extends Command
         }
 
     }
+
+    protected function addToGitignore($value){
+
+        $path = base_path() . "/.gitignore";
+        $content = file_get_contents($path);
+
+        $insert = "$value";
+        if (stristr($content, "$value")) {
+            $this->output->warning("$value already set");
+        } else {
+            $content .= "\n$value";
+            file_put_contents($path, $content);
+            $this->output->success("Added '$value' to .gitignore");
+        }
+
+    }
+
 
 }
