@@ -52,7 +52,7 @@ class JdlxInstallCommand extends Command
 
         // $this->call('api:scaffold', ["User"]);
 
-        $this->output->info("Add stateful middleware to kernel");
+        $this->output->title("Add stateful middleware to kernel");
         $path = base_path() . "/app/http/kernel.php";
         $insert = "            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,";
         $content = file_get_contents($path);
@@ -69,7 +69,7 @@ class JdlxInstallCommand extends Command
             $this->output->success("Enabled Stateful middleware in  app/http/kernel.php");
         }
 
-        $this->output->info("Add force json to kernel");
+        $this->output->title("Add force json to kernel");
         $content = file_get_contents($path);
         if (stristr($content, "ForceJsonResponse")) {
             $this->output->warning("Already added");
@@ -132,8 +132,19 @@ class JdlxInstallCommand extends Command
         $content = file_get_contents($path);
 
         // 'provider' => 'users',
+        $this->output->title("Set support credentials to true");
+        $path = base_path() . "/config/cors.php";
+        $insert = "'supports_credentials' => true,";
+        $content = file_get_contents($path);
+        if (stristr($content, $insert)) {
+            $this->output->warning("Already Set");
+        } else {
+            $content = str_replace( "'supports_credentials' => false,", $insert, $content);
+            file_put_contents($path, $content);
+            $this->output->success("Set $insert");
+        }
 
-
+        $this->output->title("Enable wildcards on spatie");
         $path = base_path() . "/config/permission.php";
         $insert = "'enable_wildcard_permission' => true";
         $content = file_get_contents($path);
