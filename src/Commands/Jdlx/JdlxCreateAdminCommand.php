@@ -38,7 +38,7 @@ class JdlxCreateAdminCommand extends Command
         $admin = Role::where('name', 'Super Admin')->first();
 
         if (empty($admin)) {
-            $this->error("Super Admin doesn't exist, did you run: php artisan db:seed JdlxInstallCommand");
+            $this->error("Super Admin doesn't exist, did you run: php artisan db:seed UserModelPermissionsSeeder");
             return parent::FAILURE;
         }
 
