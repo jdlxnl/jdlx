@@ -1,0 +1,4 @@
+#!/bin/sh
+for f in .githooks/scripts/*post-commit*; do
+  "${f[@]}"
+done
