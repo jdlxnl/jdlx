@@ -1,0 +1,5 @@
+#!/bin/sh
+
+for f in .githooks/scripts/*pre-commit*; do
+  "${f[@]}"
+done

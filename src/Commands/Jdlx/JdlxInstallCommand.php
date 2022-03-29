@@ -50,6 +50,9 @@ class JdlxInstallCommand extends Command
         $this->output->title("Run the migration");
         $this->call('migrate');
 
+        $this->output->title("Run the admin seeder");
+        $this->call('db:seed', ["UserModelPermissionsSeeder"]);
+
         // $this->call('api:scaffold', ["User"]);
 
         $this->output->title("Add stateful middleware to kernel");
@@ -155,13 +158,21 @@ class JdlxInstallCommand extends Command
             file_put_contents($path, $content);
             $this->output->success("Set $insert");
         }
+
         $this->output->title("Update .gitignore");
         $this->addToGitignore("studio.json");
+        $this->addToGitignore("studio.json.bak");
 
         $this->output->title("Set .env values");
 
         $this->updateEnvValue("SANCTUM_STATEFUL_DOMAINS", "*.local.me,localhost,localhost:8000,localhost:3000,127.0.0.1,127.0.0.1:8000,::1");
         $this->updateEnvValue("SESSION_SECURE_COOKIE", "false");
+
+
+        $this->output->title("Setup githooks");
+
+        $this->runShellCommand("git config --local core.hooksPath .githooks/");
+        $this->runShellCommand("chmod -R +x .githooks/*");
     }
 
     protected function validDatabase()
@@ -238,4 +249,8 @@ class JdlxInstallCommand extends Command
     }
 
 
+    protected function runShellCommand($commmand){
+        $this->output->writeln($commmand);
+        exec($commmand);
+    }
 }
