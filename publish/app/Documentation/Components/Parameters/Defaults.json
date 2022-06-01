@@ -44,6 +44,15 @@
             "type": "string"
         }
     },
+    "parentIdParameter": {
+        "name": "id",
+        "in": "path",
+        "description": "The identifier of the owner entity",
+        "required": true,
+        "schema": {
+            "type": "string"
+        }
+    },
     "filterParameter": {
         "name": "filter",
         "in": "query",
