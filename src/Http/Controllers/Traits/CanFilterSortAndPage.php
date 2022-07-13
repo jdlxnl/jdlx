@@ -16,7 +16,8 @@ trait CanFilterSortAndPage
         'gte' => '>=',
         'lt' => '<',
         'lte' => '<=',
-        'like' => 'like'
+        'like' => 'like',
+        'json' => 'json'
     ];
 
     /**
@@ -28,7 +29,7 @@ trait CanFilterSortAndPage
     public function getRelationshipFields(Request $request, $withWhiteList = [])
     {
         $with = $request->get("with", "");
-        return array_filter(explode(",", $with), function($field) use ($withWhiteList)  {
+        return array_filter(explode(",", $with), function ($field) use ($withWhiteList) {
             return in_array($field, $withWhiteList);
         });
     }
@@ -112,6 +113,10 @@ trait CanFilterSortAndPage
                 break;
             case "nin":
                 $items->whereNotIn($field, explode(",", $val));
+                break;
+            case "json":
+                list($field, $prop) = explode("->", $field);
+                $items->whereRaw("LOWER({$field}->'$.{$prop}') like ?", '%' . strtolower($val) . '%');
                 break;
         }
     }
