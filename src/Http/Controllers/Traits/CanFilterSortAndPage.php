@@ -106,7 +106,7 @@ trait CanFilterSortAndPage
             case "lte":
             case "like":
                 if ($val === "true" || $val === "false") $val = ($val === "true");
-                $items->where($field, self::$OPPS[$opp], $val);
+                $items->where($field, self::$OPPS[$opp], $val === "null" ? null : $val);
                 break;
             case "in":
                 $items->whereIn($field, explode(",", $val));
