@@ -100,7 +100,9 @@ trait CanFilterSortAndPage
         // check for json
         $json = false;
         if (Str::contains($field, "->")) {
-            list($field, $prop) = explode("->", $field);
+            $parts = explode("->", $field);
+            $field = array_shift($parts);
+            $prop = implode(".", $parts);
             $json = true;
         }
 
