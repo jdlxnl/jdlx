@@ -5,6 +5,7 @@ namespace Jdlx\Http\Controllers\Traits;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 use Jdlx\Http\Pagination\Paginator;
 
 trait CanFilterSortAndPage
@@ -96,7 +97,21 @@ trait CanFilterSortAndPage
             array_unshift($split, "eq");
         }
 
+        // check for json
+        $json = false;
+        if (Str::contains($field, "->")) {
+            $parts = explode("->", $field);
+            $field = array_shift($parts);
+            $prop = implode(".", $parts);
+            $json = true;
+        }
+
         list($opp, $val) = $split;
+        if ($json && in_array($opp, ["in", "nin"])) {
+            $vals = explode(",", $val);
+            $questions = implode(",", array_fill(0, count($vals), "?"));
+        }
+
         switch ($opp) {
             case "eq":
             case "neq":
@@ -106,16 +121,30 @@ trait CanFilterSortAndPage
             case "lte":
             case "like":
                 if ($val === "true" || $val === "false") $val = ($val === "true");
-                $items->where($field, self::$OPPS[$opp], $val === "null" ? null : $val);
+                $val = $val === "null" ? null : $val;
+
+                if ($json) {
+                    $items->whereRaw("JSON_EXTRACT({$field}, '$.{$prop}') " . self::$OPPS[$opp] . " ?", $val);
+                } else {
+                    $items->where($field, self::$OPPS[$opp], $val === "null" ? null : $val);
+                }
+
                 break;
             case "in":
-                $items->whereIn($field, explode(",", $val));
+                if ($json) {
+                    $items->whereRaw("JSON_EXTRACT({$field}, '$.{$prop}') in({$questions})", $vals);
+                } else {
+                    $items->whereIn($field, explode(",", $val));
+                }
                 break;
             case "nin":
-                $items->whereNotIn($field, explode(",", $val));
+                if ($json) {
+                    $items->whereRaw("JSON_EXTRACT({$field}, '$.{$prop}') not in({$questions})", $vals);
+                } else {
+                    $items->whereNotIn($field, explode(",", $val));
+                }
                 break;
             case "json":
-                list($field, $prop) = explode("->", $field);
                 $items->whereRaw("LOWER({$field}->'$.{$prop}') like ?", '%' . strtolower($val) . '%');
                 break;
         }
