@@ -6,6 +6,27 @@ trait FieldDescriptor
 {
     private static $booleanFields = ['editable', 'readOnly', 'writeOnly', 'sortable', 'filterable'];
 
+    /**
+     * Return a standard CacheKey for the object
+     *
+     * @param string $prefix
+     * @param string $suffix
+     * @return string
+     */
+    public function cacheKey(string $prefix = "", string $suffix = ""): string
+    {
+        $parts = [get_class($this), $this->id];
+        if (!empty($prefix)) {
+            array_unshift($parts, $prefix);
+        }
+
+        if (!empty($suffix)) {
+            $parts[] = $prefix;
+        }
+
+        return implode("_", $parts);
+    }
+
     public static function getFieldConfigurations()
     {
         $fields = [];
