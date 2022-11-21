@@ -2,8 +2,6 @@
 
 namespace Jdlx\Traits;
 
-use App\Models\BaseProduct;
-use App\Models\Product;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Http\Resources\MissingValue;
@@ -76,7 +74,7 @@ trait ResourceUtils
         if ($this->resource->{$relationship} instanceof Collection) {
             //    dump("Set children in collection: " . $children->join(","));
             $this->resource->{$relationship}->each(fn($r) => $r->__requestedWith = $children);
-        } else {
+        } else if (!is_null($this->resource->{$relationship})) {
             //    dump("Set children: " . $children->join(","));
             $this->resource->{$relationship}->__requestedWith = $children;
         }
